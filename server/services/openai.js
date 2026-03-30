@@ -96,12 +96,13 @@ async function generateOpeningLines(profile) {
     });
 
     const content = response.choices[0].message.content;
-    
+
     // Parse the JSON response
     let parsed;
     try {
       parsed = JSON.parse(content);
     } catch (parseError) {
+      console.error('Failed to parse OpenAI response:', content);
       throw new Error(`Failed to parse OpenAI response: ${content}`);
     }
 
@@ -111,6 +112,8 @@ async function generateOpeningLines(profile) {
       lines = parsed;
     } else if (parsed.lines && Array.isArray(parsed.lines)) {
       lines = parsed.lines;
+    } else if (parsed.response && Array.isArray(parsed.response)) {
+      lines = parsed.response;
     } else {
       // Try to extract lines from object format
       lines = [
@@ -122,6 +125,7 @@ async function generateOpeningLines(profile) {
 
     // Validate response structure
     if (!Array.isArray(lines) || lines.length === 0) {
+      console.error('Invalid response format. Parsed:', JSON.stringify(parsed));
       throw new Error('Invalid response format from OpenAI');
     }
 
