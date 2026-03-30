@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeadScout - AI Cold Email Personalization</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎯 LeadScout</h1>
+      <p class="tagline">Generate personalized cold email opening lines from LinkedIn profiles in seconds</p>
+    </header>
+
+    <main>
+      <section class="input-section">
+        <h2>Prospect Profile</h2>
+        <form id="profile-form">
+          <!-- Quick Import Section -->
+          <div class="url-import-section">
+            <label for="linkedinUrl">LinkedIn URL</label>
+            <div class="url-input-row">
+              <input type="url" id="linkedinUrl" name="linkedinUrl" placeholder="https://linkedin.com/in/sarah-chen">
+              <button type="button" id="fetch-profile-btn" class="fetch-btn">
+                <span class="fetch-text">Fetch Profile</span>
+                <span class="fetch-loading" style="display: none;">Fetching...</span>
+              </button>
+            </div>
+            <p class="url-hint">Drop a LinkedIn URL to auto-fill the form below</p>
+            <div id="url-info-banner" class="url-info-banner" style="display: none;"></div>
+          </div>
+
+          <div class="form-divider">
+            <span>Profile Details</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" required placeholder="Sarah Chen">
+            </div>
+            <div class="form-group">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" placeholder="Stripe">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="headline">LinkedIn Headline</label>
+            <input type="text" id="headline" name="headline" placeholder="Head of Growth @ Stripe | Ex-Uber, Ex-Google">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="currentRole">Current Role</label>
+              <input type="text" id="currentRole" name="currentRole" placeholder="Head of Growth">
+            </div>
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input type="text" id="location" name="location" placeholder="San Francisco, CA">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="about">About Section</label>
+            <textarea id="about" name="about" rows="3" placeholder="I help B2B companies scale from $1M to $100M ARR..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="recentPosts">Recent Posts (one per line)</label>
+            <textarea id="recentPosts" name="recentPosts" rows="3" placeholder="Just published: 'The 3 metrics that predict B2B growth'&#10;Excited to announce we're hiring 5 growth marketers!"></textarea>
+          </div>
+
+          <button type="submit" id="generate-btn">
+            <span class="btn-text">Generate Opening Lines</span>
+            <span class="btn-loading" style="display: none;">Generating...</span>
+          </button>
+        </form>
+      </section>
+
+      <section class="results-section" id="results-section" style="display: none;">
+        <h2>Generated Opening Lines</h2>
+        <div id="results-container"></div>
+      </section>
+
+      <section class="error-section" id="error-section" style="display: none;">
+        <div class="error-message" id="error-message"></div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="stats">
+        <span id="stats-today">Today: 0</span>
+        <span id="stats-total">Total: 0</span>
+      </div>
+      <a href="/dashboard" class="dashboard-link">📊 View Stats</a>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">Copied to clipboard!</div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

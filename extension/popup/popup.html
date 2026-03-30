@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeadScout</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>🎯 LeadScout</h1>
+      <p class="subtitle">AI-Powered Cold Email Lines</p>
+    </header>
+
+    <!-- Not on LinkedIn message -->
+    <div id="not-linkedin" class="state-message hidden">
+      <span class="icon">🔍</span>
+      <p>Navigate to a LinkedIn profile to extract data</p>
+      <a href="https://www.linkedin.com" target="_blank" class="link">Open LinkedIn →</a>
+    </div>
+
+    <!-- Loading state -->
+    <div id="loading" class="state-message hidden">
+      <div class="spinner"></div>
+      <p>Extracting profile data...</p>
+    </div>
+
+    <!-- Generating state -->
+    <div id="generating" class="state-message hidden">
+      <div class="spinner"></div>
+      <p>Generating personalized lines...</p>
+    </div>
+
+    <!-- Profile data display -->
+    <div id="profile-section" class="hidden">
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="profile-avatar" id="profile-avatar">👤</div>
+          <div class="profile-info">
+            <h2 id="profile-name">Loading...</h2>
+            <p id="profile-headline" class="headline">...</p>
+            <p id="profile-company" class="company">...</p>
+          </div>
+        </div>
+        
+        <div class="profile-details">
+          <div class="detail-row" id="location-row">
+            <span class="label">📍 Location:</span>
+            <span id="profile-location">-</span>
+          </div>
+          <div class="detail-row" id="about-row">
+            <span class="label">📝 About:</span>
+            <span id="profile-about" class="truncate">-</span>
+          </div>
+          <div class="detail-row" id="posts-row">
+            <span class="label">📣 Recent:</span>
+            <span id="profile-posts" class="truncate">-</span>
+          </div>
+        </div>
+      </div>
+
+      <button id="generate-btn" class="generate-button">
+        ✨ Generate Opening Lines
+      </button>
+    </div>
+
+    <!-- Generated lines display -->
+    <div id="lines-section" class="hidden">
+      <h3>Generated Lines</h3>
+      <div id="lines-list" class="lines-list">
+        <!-- Lines will be inserted here -->
+      </div>
+      
+      <button id="regenerate-btn" class="regenerate-button">
+        🔄 Generate New Lines
+      </button>
+    </div>
+
+    <!-- Error state -->
+    <div id="error" class="state-message error hidden">
+      <span class="icon">⚠️</span>
+      <p id="error-message">Something went wrong</p>
+      <button id="retry-btn" class="retry-button">Try Again</button>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast hidden">
+      ✓ Copied to clipboard!
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <a href="http://localhost:3000/dashboard" target="_blank">📊 Dashboard</a>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

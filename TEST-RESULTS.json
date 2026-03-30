@@ -1,0 +1,71 @@
+{
+  "tests": [
+    {
+      "name": "package.json",
+      "status": "PASS",
+      "detail": "start: \"node server/index.js\""
+    },
+    {
+      "name": "npm install",
+      "status": "PASS",
+      "detail": "OK"
+    },
+    {
+      "name": "server starts",
+      "status": "PASS",
+      "detail": "Port 9186"
+    },
+    {
+      "name": "GET / serves HTML",
+      "status": "PASS",
+      "detail": "HTML document detected"
+    },
+    {
+      "name": "UI has interactive elements",
+      "status": "PASS",
+      "detail": "form=true, input=true, button=true"
+    },
+    {
+      "name": "UI has meaningful content",
+      "status": "PASS",
+      "detail": "4089 chars with headings"
+    },
+    {
+      "name": "POST /api/generate",
+      "status": "PASS",
+      "detail": "200 — {\"id\":\"gen_2dfc7dfb\",\"lines\":[{\"type\":\"casual\",\"text\":\"Hey Test! Saw your work at TestCorp — really "
+    },
+    {
+      "name": "GET /api/generations",
+      "status": "PASS",
+      "detail": "200 — {\"generations\":[{\"id\":\"gen_2dfc7dfb\",\"prospectName\":\"Test User\",\"company\":\"TestCorp\",\"createdAt\":\"20"
+    },
+    {
+      "name": "GET /api/stats",
+      "status": "PASS",
+      "detail": "200 — {\"today\":2,\"allTime\":15,\"lastGeneration\":\"2026-03-26T00:22:43.395Z\",\"firstGeneration\":\"2026-03-25T21"
+    },
+    {
+      "name": "GET /dashboard",
+      "status": "PASS",
+      "detail": "200 — <!DOCTYPE html> <html lang=\"en\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"wi"
+    },
+    {
+      "name": "GET /health",
+      "status": "PASS",
+      "detail": "200 — {\"status\":\"ok\",\"timestamp\":\"2026-03-26T00:22:43.413Z\"}"
+    },
+    {
+      "name": "POST /scrape-url",
+      "status": "PASS",
+      "detail": "400 validation — {\"error\":\"Invalid LinkedIn URL\",\"details\":\"Please provide a valid LinkedIn profile URL (e.g., https://linkedin.com/in/username)\"}"
+    }
+  ],
+  "passed": 12,
+  "failed": 0,
+  "errors": [],
+  "timestamp": "2026-03-26T00:22:40.862Z",
+  "verdict": "PASS",
+  "summary": "12 passed, 0 failed out of 12 tests",
+  "allEndpointsWorking": true
+}

@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: leadscout
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000

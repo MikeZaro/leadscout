@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generation Details - LeadScout</title>
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --border-color: #30363d;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent-primary: #58a6ff;
+      --accent-success: #3fb950;
+      --accent-warning: #d29922;
+      --accent-purple: #a371f7;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .nav-bar {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-primary);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 10px 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .nav-link:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-purple);
+    }
+
+    .main-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .prospect-header {
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .prospect-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .prospect-company {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .prospect-role {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .timestamp {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .lines-section h2 {
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .line-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .line-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .line-type {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin-bottom: 12px;
+    }
+
+    .line-type.casual {
+      background: rgba(63, 185, 80, 0.15);
+      color: var(--accent-success);
+    }
+
+    .line-type.professional {
+      background: rgba(88, 166, 255, 0.15);
+      color: var(--accent-primary);
+    }
+
+    .line-type.pain_point, .line-type.pain-point {
+      background: rgba(210, 153, 34, 0.15);
+      color: var(--accent-warning);
+    }
+
+    .line-text {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .copy-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--accent-primary);
+      background: var(--bg-tertiary);
+    }
+
+    .copy-btn.copied {
+      color: var(--accent-success);
+      border-color: var(--accent-success);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      padding: 12px 24px;
+      background: var(--accent-success);
+      color: #ffffff;
+      font-weight: 500;
+      border-radius: 8px;
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      .prospect-name {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav-bar">
+      <a href="/dashboard" class="nav-link">← Back to Dashboard</a>
+      <a href="/" class="nav-link">🎯 Generate New</a>
+    </nav>
+
+    <div class="main-card">
+      <div class="prospect-header">
+        <div class="prospect-name">{{prospectName}}</div>
+        <div class="prospect-company">{{company}}</div>
+        <div class="prospect-role">{{currentRole}}</div>
+        <div class="timestamp">Generated {{formattedTime}}</div>
+      </div>
+
+      <div class="lines-section">
+        <h2>Generated Opening Lines</h2>
+        <!-- LINES_LIST -->
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Copied to clipboard!</div>
+
+  <script>
+    function copyToClipboard(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.classList.add('copied');
+        btn.innerHTML = '✓ Copied';
+        
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+          toast.classList.remove('show');
+          btn.classList.remove('copied');
+          btn.innerHTML = '📋 Copy';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
