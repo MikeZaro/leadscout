@@ -9,6 +9,24 @@ const db = require('../models/db');
 const { generateOpeningLines } = require('../services/openai');
 
 /**
+ * GET /api/diagnostics
+ * Check if system is configured correctly
+ */
+router.get('/diagnostics', (req, res) => {
+  const hasApiKey = !!process.env.OPENAI_API_KEY;
+  const keyPreview = hasApiKey ? process.env.OPENAI_API_KEY.slice(0, 20) + '...' : 'NOT SET';
+
+  res.status(200).json({
+    status: 'diagnostics',
+    openai_api_key_set: hasApiKey,
+    openai_api_key_preview: keyPreview,
+    node_env: process.env.NODE_ENV || 'not set',
+    port: process.env.PORT || '3000',
+    timestamp: new Date().toISOString()
+  });
+});
+
+/**
  * POST /api/scrape-url
  * Fetch and parse LinkedIn profile data from a URL
  */
@@ -234,25 +252,40 @@ router.post('/generate', async (req, res) => {
 
   } catch (error) {
     console.error('Error generating lines:', error);
-    
+
     // Handle specific error types
-    if (error.message.includes('OPENAI_API_KEY')) {
-      return res.status(500).json({ 
-        error: 'OpenAI API error', 
-        details: 'API key not configured' 
-      });
-    }
-    
-    if (error.message.includes('timeout')) {
-      return res.status(504).json({ 
-        error: 'OpenAI API timeout', 
-        details: 'Please try again' 
+    if (error.message.includes('OPENAI_API_KEY') || error.message.includes('API key')) {
+      return res.status(500).json({
+        error: 'OpenAI API error',
+        details: 'API key not configured or invalid',
+        hint: 'Set OPENAI_API_KEY environment variable'
       });
     }
 
-    res.status(500).json({ 
-      error: 'OpenAI API error', 
-      details: error.message 
+    if (error.message.includes('timeout')) {
+      return res.status(504).json({
+        error: 'OpenAI API timeout',
+        details: 'Request took too long. Please try again.'
+      });
+    }
+
+    if (error.message.includes('429') || error.message.includes('quota')) {
+      return res.status(429).json({
+        error: 'OpenAI quota exceeded',
+        details: 'API quota limit reached. Check billing at platform.openai.com'
+      });
+    }
+
+    if (error.message.includes('Invalid response format')) {
+      return res.status(500).json({
+        error: 'OpenAI response parsing failed',
+        details: 'The response from OpenAI was not in the expected format'
+      });
+    }
+
+    res.status(500).json({
+      error: 'OpenAI API error',
+      details: error.message || 'Unknown error'
     });
   }
 });
